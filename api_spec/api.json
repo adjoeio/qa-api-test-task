@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Campaign Distribution API",
+    "description": "This API is for distributing campaigns to users",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/campaign-distribution/campaigns": {
+      "get": {
+        "summary": "get list of campaigns",
+        "description": "Update an existing pet by Id",
+        "operationId": "updatePet",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/campaign-click/click/{campaignID}": {
+      "post": {
+        "summary": "Make a click for a campaign",
+        "description": "Make a click for a campaign",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "campaignID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the campaign that was clicked"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Click"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClickResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid click"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Click": {
+        "type": "object",
+        "properties": {
+          "CreativeID": {
+            "type": "string",
+            "example": "123"
+          }
+        }
+      },
+      "CampaignList": {
+        "type": "object",
+        "properties": {
+          "Length": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "Campaigns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Campaign"
+            }
+          }
+        }
+      },
+      "Campaign": {
+        "type": "object",
+        "properties": {
+          "AppID": {
+            "type": "string",
+            "example": 123456789
+          },
+          "AppName": {
+            "type": "string",
+            "example": "App1"
+          },
+          "CreativeID": {
+            "type": "string",
+            "example": 123
+          },
+          "ClickURL": {
+            "type": "string",
+            "example": "/campaign-click/click/123"
+          },
+          "ViewURL": {
+            "type": "string",
+            "example": "/campaign-view/view/123"
+          }
+        }
+      },
+      "ClickResponse": {
+        "type": "object",
+        "properties": {
+          "StoreURL": {
+            "type": "string",
+            "example": "https://apps.apple.com/us/app/id123456789"
+          }
+        }
+      }
+    }
+  }
+}

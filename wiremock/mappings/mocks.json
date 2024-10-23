@@ -1,0 +1,141 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/campaign-distribution/campaigns"
+      },
+
+      "response": {
+        "status": 200,
+        "body": "{\"Length\":2,\"Campaigns\":[{\"AppID\":\"553834731\",\"AppName\":\"App1\",\"CreativeID\":\"one\",\"ClickURL\":\"/campaign-click/click/123\",\"ViewURL\":\"/campaign-view/view/123\"}]}",
+        "headers": {
+          "Content-Type": "text/json"
+        },
+        "delayDistribution": {
+            "type": "lognormal",
+            "median": 2000,
+            "sigma": 3.0
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-click/click/123",
+        "bodyPatterns": [{ "equalToJson": "{\"CreativeID\":\"one\"}" }]
+      },
+
+      "response": {
+        "status": 200,
+        "body": "{\"StoreURL\":\"https://apps.apple.com/us/app/id553834731\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-click/click",
+        "bodyPatterns": [
+          {
+            "matchesJsonSchema": {
+              "type": "object",
+              "required": ["CreativeID"],
+              "properties": {
+                "CreativeID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 400,
+        "body": "{\"Error\":\"invalid click\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 3,
+      "request": {
+        "method": "ANY",
+        "urlPathPattern": "/campaign-click/[a-zA-Z0-9]*"
+      },
+      "response": {
+        "status": 404,
+        "body": "Not Found",
+        "headers": {
+          "Content-Type": "text/text"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-view/view/123",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"CreativeID\":\"one\"}"
+          }
+        ]
+      },
+
+      "response": {
+        "status": 301,
+        "body": "{\"RedirectURL\":\"https://apps.apple.com/us/app/id553834731\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-view/view/123",
+        "bodyPatterns": [
+          {
+            "matchesJsonSchema": {
+              "type": "object",
+              "required": ["CreativeID"],
+              "properties": {
+                "CreativeID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 400,
+        "body": "{\"Error\":\"invalid view\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 3,
+      "request": {
+        "method": "ANY",
+        "urlPathPattern": "/campaign-view/[a-zA-Z0-9]*"
+      },
+      "response": {
+        "status": 404,
+        "body": "Not Found",
+        "headers": {
+          "Content-Type": "text/text"
+        }
+      }
+    }
+  ]
+}

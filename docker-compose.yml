@@ -1,0 +1,16 @@
+services:
+  server:
+    image: wiremock/wiremock:3.9.2-alpine
+    ports: 
+      - "8080:8080"
+    volumes:
+      - ./wiremock:/home/wiremock
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui:v5.17.14
+    ports:
+      - "8081:8080"
+    environment:
+      SWAGGER_JSON: "/src/api.json"
+    volumes:
+      - ./api_spec:/src
