@@ -13,9 +13,8 @@
   "paths": {
     "/campaign-distribution/campaigns": {
       "get": {
-        "summary": "get list of campaigns",
-        "description": "Update an existing pet by Id",
-        "operationId": "updatePet",
+        "summary": "Get list of campaigns",
+        "description": "Get a list of campaigns",
         "responses": {
           "200": {
             "description": "Successful operation",
