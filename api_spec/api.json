@@ -11,10 +11,31 @@
     }
   ],
   "paths": {
-    "/campaign-distribution/campaigns": {
+    "/campaign-distribution/android/campaigns": {
       "get": {
-        "summary": "Get list of campaigns",
-        "description": "Get a list of campaigns",
+        "summary": "Get list of Android campaigns",
+        "description": "Get a list of Android campaigns",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/campaign-distribution/ios/campaigns": {
+      "get": {
+        "summary": "Get list of iOS campaigns",
+        "description": "Get a list of iOS campaigns",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -81,7 +102,7 @@
         "properties": {
           "CreativeID": {
             "type": "string",
-            "example": "123"
+            "example": "ed75c3d6-db84-4b2a-85c0-d5d26fb2fba9"
           }
         }
       },
@@ -114,7 +135,7 @@
           },
           "CreativeID": {
             "type": "string",
-            "example": 123
+            "example": "ed75c3d6-db84-4b2a-85c0-d5d26fb2fba9"
           },
           "ClickURL": {
             "type": "string",

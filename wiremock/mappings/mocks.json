@@ -3,12 +3,12 @@
     {
       "request": {
         "method": "GET",
-        "url": "/campaign-distribution/campaigns"
+        "url": "/campaign-distribution/android/campaigns"
       },
 
       "response": {
         "status": 200,
-        "body": "{\"Length\":2,\"Campaigns\":[{\"AppID\":\"553834731\",\"AppName\":\"App1\",\"CreativeID\":\"one\",\"ClickURL\":\"/campaign-click/click/123\",\"ViewURL\":\"/campaign-view/view/123\"}]}",
+        "body": "{\"Length\":3,\"Campaigns\":[{\"AppID\":\"6458097001\",\"AppName\":\"Archery Clash\",\"CreativeID\":\"31f15623-57c6-450e-82eb-1fda52cade22\",\"ClickURL\":\"/campaign-click/click/123\",\"ViewURL\":\"/campaign-view/view/123\"},{\"AppID\":\"ball.sort.color.puz.game.puzzle\",\"AppName\":\"Ballsort\",\"CreativeID\":\"7f79cb7e-9285-442e-9e64-e861c9b1e60c\",\"ClickURL\":\"/campaign-click/click/321\",\"ViewURL\":\"/campaign-view/view/321\"}]}",
         "headers": {
           "Content-Type": "text/json"
         },
@@ -20,16 +20,121 @@
       }
     },
     {
+      "request": {
+        "method": "GET",
+        "url": "/campaign-distribution/ios/campaigns"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\"Campaigns\":[{\"AppID\":\"6466648550\",\"AppName\":\"Warriors\",\"CreativeID\":\"356054a8-7129-474b-848f-4aa6e164c492\",\"ClickURL\":\"/campaign-click/click/456\",\"ViewURL\":\"/campaign-view/view/456\"},{\"AppID\":\"1494108691\",\"AppName\":\"Sort puzzle\",\"CreativeID\":\"356054a8-7129-474b-848f-4aa6e164c492\",\"ClickURL\":\"/campaign-click/click/567\",\"ViewURL\":\"/campaign-view/view/567\"}]}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-click/click/321",
+        "bodyPatterns": [
+          {
+            "matchesJsonSchema": {
+              "type": "object",
+              "required": ["CreativeID"],
+              "properties": {
+                "CreativeID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "body": "{\"StoreURL\":\"https://play.google.com/store/apps/details?id=ball.sort.color.puz.game.puzzle\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
       "priority": 1,
       "request": {
         "method": "POST",
         "url": "/campaign-click/click/123",
-        "bodyPatterns": [{ "equalToJson": "{\"CreativeID\":\"one\"}" }]
+        "bodyPatterns": [
+          {
+            "matchesJsonSchema": {
+              "type": "object",
+              "required": ["CreativeID"],
+              "properties": {
+                "CreativeID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
       },
-
       "response": {
         "status": 200,
-        "body": "{\"StoreURL\":\"https://apps.apple.com/us/app/id553834731\"}",
+        "body": "{\"StoreURL\":\"https://apps.apple.com/us/app/id6458097001\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-click/click/456",
+        "bodyPatterns": [
+          {
+            "matchesJsonSchema": {
+              "type": "object",
+              "required": ["CreativeID"],
+              "properties": {
+                "CreativeID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "body": "{\"StoreURL\":\"https://apps.apple.com/us/app/id666648550\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-click/click/567",
+        "bodyPatterns": [
+          {
+            "matchesJsonSchema": {
+              "type": "object",
+              "required": ["CreativeID"],
+              "properties": {
+                "CreativeID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "body": "{\"StoreURL\":\"https://apps.apple.com/us/app/id1494108691\"}",
         "headers": {
           "Content-Type": "text/json"
         }
@@ -83,14 +188,74 @@
         "url": "/campaign-view/view/123",
         "bodyPatterns": [
           {
-            "equalToJson": "{\"CreativeID\":\"one\"}"
+            "equalToJson": "{\"CreativeID\":\"31f15623-57c6-450e-82eb-1fda52cade22\"}"
           }
         ]
       },
 
       "response": {
         "status": 301,
-        "body": "{\"RedirectURL\":\"https://apps.apple.com/us/app/id553834731\"}",
+        "body": "{\"RedirectURL\":\"https://apps.apple.com/us/app/id6466648550\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-view/view/321",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"CreativeID\":\"7f79cb7e-9285-442e-9e64-e861c9b1e60c\"}"
+          }
+        ]
+      },
+
+      "response": {
+        "status": 301,
+        "body": "{\"RedirectURL\":\"https://play.google.com/store/apps/details?id=ball.sort.color.puz.game.puzzle\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-view/view/456",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"CreativeID\":\"356054a8-7129-474b-848f-4aa6e164c492\"}"
+          }
+        ]
+      },
+
+      "response": {
+        "status": 301,
+        "body": "{\"RedirectURL\":\"https://apps.apple.com/us/app/id6466648550\"}",
+        "headers": {
+          "Content-Type": "text/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "POST",
+        "url": "/campaign-view/view/567",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"CreativeID\":\"356054a8-7129-474b-848f-4aa6e164c492\"}"
+          }
+        ]
+      },
+
+      "response": {
+        "status": 301,
+        "body": "{\"RedirectURL\":\"https://apps.apple.com/us/app/id1494108691\"}",
         "headers": {
           "Content-Type": "text/json"
         }
@@ -100,7 +265,7 @@
       "priority": 2,
       "request": {
         "method": "POST",
-        "url": "/campaign-view/view/123",
+        "url": "/campaign-view/view/[0-9]*",
         "bodyPatterns": [
           {
             "matchesJsonSchema": {
