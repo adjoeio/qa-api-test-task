@@ -1,7 +1,7 @@
-# Senior QA Engineer (API) - Test Task
+# QA Engineer (API) - Test Task
 You have done an awesome job in your first interview! We designed this case study to get to
 know you and your way of working a little better.  
-Please take no more than 2h to solve the following questions. Try to focus on the main
+Please take no more than 3h to solve the following questions. Try to focus on the main
 important topics and if you struggle with one task try to continue with another one :-)
  
 Important: we want to hire human intelligence, not artificial intelligence. Therefore do not use
